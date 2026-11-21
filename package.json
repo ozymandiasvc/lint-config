@@ -1,10 +1,10 @@
 {
-  "name": "@fedecrackcrypto/lint-config",
-  "version": "1.4.0",
+  "name": "@ozymandiasvc/lint-config",
+  "version": "1.4.1",
   "description": "Shared lint baseline: ESLint, strict tsconfig, Prettier, dependency-cruiser and knip presets.",
   "license": "MIT",
   "type": "module",
-  "repository": "github:fedecrackcrypto/lint-config",
+  "repository": "github:ozymandiasvc/lint-config",
   "packageManager": "pnpm@12.16.1",
   "exports": {
     "./eslint": "./eslint/base.js",

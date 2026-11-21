@@ -1,6 +1,6 @@
 // Shared dependency-cruiser rules. Use it from the repo's .dependency-cruiser.cjs:
 //   module.exports = {
-//     extends: "@fedecrackcrypto/lint-config/depcruise",
+//     extends: "@ozymandiasvc/lint-config/depcruise",
 //     forbidden: [ /* this repo's layer rules */ ],
 //     options: { tsConfig: { fileName: "tsconfig.json" } },
 //   };

@@ -4,35 +4,35 @@ The shared lint baseline for my TypeScript repos. Its job is to constrain AI cod
 agents: every rule is an error, the usual escape hatches are banned, and every repo
 exposes one `check` command that agents, hooks, pre-commit and CI all run.
 
-The `lint-baseline` skill in [command-center](https://github.com/fedecrackcrypto/command-center)
+The `lint-baseline` skill in [command-center](https://github.com/ozymandiasvc/command-center)
 onboards a repo (mode **add**) and moves it to a new version (mode **update**). Use the
 skill rather than wiring things by hand.
 
 ## What it exports
 
-| Import                                              | What it is                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@fedecrackcrypto/lint-config/eslint`               | `base({ tsconfigRootDir })`: ESLint 10 flat config. `typescript-eslint` `strict-type-checked` + `stylistic-type-checked`, bans on `any`, `@ts-ignore`/`@ts-expect-error`, `!`, `console` and comments (tool directives allowed), suppressions need a description, Vitest rules for test files, Prettier conflicts off. |
-| `@fedecrackcrypto/lint-config/eslint/react`         | `react()`: React and hooks rules for `.tsx`/`.jsx`; bans `useEffect` and `useLayoutEffect` in every file.                                                                                                                                                                                                              |
-| `@fedecrackcrypto/lint-config/eslint/next`          | `next()`: the React layer plus Next.js core-web-vitals rules. Use it instead of `react()`.                                                                                                                                                                                                                             |
-| `@fedecrackcrypto/lint-config/tsconfig/strict.json` | `strict` plus the extra strictness flags. Each repo sets its own `module`, `target` and `lib`.                                                                                                                                                                                                                         |
-| `@fedecrackcrypto/lint-config/prettier`             | Prettier config (Prettier defaults).                                                                                                                                                                                                                                                                                   |
-| `@fedecrackcrypto/lint-config/depcruise`            | dependency-cruiser rules: no cycles, no orphans, no unresolvable or undeclared imports, no devDependencies in `src`, no importing another workspace package's internals. Repos add their own layer rules.                                                                                                              |
-| `@fedecrackcrypto/lint-config/knip`                 | knip policy. Repos add their own workspaces and entries.                                                                                                                                                                                                                                                               |
+| Import                                           | What it is                                                                                                                                                                                                                                                                                                             |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@ozymandiasvc/lint-config/eslint`               | `base({ tsconfigRootDir })`: ESLint 10 flat config. `typescript-eslint` `strict-type-checked` + `stylistic-type-checked`, bans on `any`, `@ts-ignore`/`@ts-expect-error`, `!`, `console` and comments (tool directives allowed), suppressions need a description, Vitest rules for test files, Prettier conflicts off. |
+| `@ozymandiasvc/lint-config/eslint/react`         | `react()`: React and hooks rules for `.tsx`/`.jsx`; bans `useEffect` and `useLayoutEffect` in every file.                                                                                                                                                                                                              |
+| `@ozymandiasvc/lint-config/eslint/next`          | `next()`: the React layer plus Next.js core-web-vitals rules. Use it instead of `react()`.                                                                                                                                                                                                                             |
+| `@ozymandiasvc/lint-config/tsconfig/strict.json` | `strict` plus the extra strictness flags. Each repo sets its own `module`, `target` and `lib`.                                                                                                                                                                                                                         |
+| `@ozymandiasvc/lint-config/prettier`             | Prettier config (Prettier defaults).                                                                                                                                                                                                                                                                                   |
+| `@ozymandiasvc/lint-config/depcruise`            | dependency-cruiser rules: no cycles, no orphans, no unresolvable or undeclared imports, no devDependencies in `src`, no importing another workspace package's internals. Repos add their own layer rules.                                                                                                              |
+| `@ozymandiasvc/lint-config/knip`                 | knip policy. Repos add their own workspaces and entries.                                                                                                                                                                                                                                                               |
 
 ## Using it in a repo
 
 Install it as a git dependency pinned to a tag, plus its peers:
 
 ```sh
-pnpm add -D github:fedecrackcrypto/lint-config#v1.0.0 eslint typescript prettier dependency-cruiser knip
+pnpm add -D github:ozymandiasvc/lint-config#v1.0.0 eslint typescript prettier dependency-cruiser knip
 ```
 
 `eslint.config.js`:
 
 ```js
-import { base } from "@fedecrackcrypto/lint-config/eslint";
-import { react } from "@fedecrackcrypto/lint-config/eslint/react";
+import { base } from "@ozymandiasvc/lint-config/eslint";
+import { react } from "@ozymandiasvc/lint-config/eslint/react";
 
 export default [...base({ tsconfigRootDir: import.meta.dirname }), ...react()];
 ```
@@ -48,14 +48,14 @@ bundler hints like `/* webpackChunkName: … */`. Plain JS files may keep JSDoc 
 `tsconfig.json` (or `tsconfig.base.json` in a monorepo):
 
 ```json
-{ "extends": "@fedecrackcrypto/lint-config/tsconfig/strict.json" }
+{ "extends": "@ozymandiasvc/lint-config/tsconfig/strict.json" }
 ```
 
 `package.json`:
 
 ```json
 {
-  "prettier": "@fedecrackcrypto/lint-config/prettier",
+  "prettier": "@ozymandiasvc/lint-config/prettier",
   "scripts": {
     "lint": "eslint . --prune-suppressions",
     "typecheck": "tsc --noEmit",
