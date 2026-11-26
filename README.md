@@ -2,7 +2,7 @@
 
 The shared lint baseline for my TypeScript repos. Its job is to constrain AI coding
 agents: every rule is an error, the usual escape hatches are banned, and every repo
-exposes one `check` command that agents, hooks, pre-commit and CI all run.
+exposes one `check` command that agents, the command-center hooks and the pre-push hook all run.
 
 The `lint-baseline` skill in [command-center](https://github.com/ozymandiasvc/command-center)
 onboards a repo (mode **add**) and moves it to a new version (mode **update**). Use the
@@ -70,6 +70,18 @@ bundler hints like `/* webpackChunkName: … */`. Plain JS files may keep JSDoc 
 
 `.prettierignore` must list the lockfile and `eslint-suppressions.json`: ESLint writes the
 suppressions file in its own format, so Prettier would fail every prune.
+
+`lefthook.yml`, with `lefthook` in devDependencies and `"prepare": "lefthook install"`:
+
+```yaml
+extends:
+  - node_modules/@ozymandiasvc/lint-config/lefthook/base.yml
+```
+
+Before each commit it runs ESLint and Prettier on the staged files; before each push it runs
+`pnpm check`. The pre-push hook is the gate: repos have no CI. Repo-only hooks (another
+language's formatter) go in the repo's own file; on a command with the same name, the shared
+file wins.
 
 In a monorepo, `depcruise` takes the workspace folders (`depcruise apps packages`), and
 `typecheck`/`test` run across workspaces (`pnpm -r typecheck`).
