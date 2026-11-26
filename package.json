@@ -1,6 +1,6 @@
 {
   "name": "@ozymandiasvc/lint-config",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Shared lint baseline: ESLint, strict tsconfig, Prettier, dependency-cruiser and knip presets.",
   "license": "MIT",
   "type": "module",
@@ -20,7 +20,8 @@
     "tsconfig",
     "depcruise",
     "prettier.js",
-    "knip.js"
+    "knip.js",
+    "lefthook"
   ],
   "scripts": {
     "format": "prettier --write .",

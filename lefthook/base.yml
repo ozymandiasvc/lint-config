@@ -1,0 +1,13 @@
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      glob: "*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"
+      run: pnpm exec eslint --no-warn-ignored --pass-on-unpruned-suppressions {staged_files}
+    prettier:
+      run: pnpm exec prettier --check --ignore-unknown {staged_files}
+
+pre-push:
+  commands:
+    check:
+      run: pnpm check
